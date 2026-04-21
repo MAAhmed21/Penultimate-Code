@@ -1,99 +1,85 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<title>Search</title>
-<link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Search Campus</title>
+  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
-
-<header>
+  <header>
     <div class="logo">
-        <div class="logo-box">W</div>
+      <div class="logo-box">W</div>
+      <div class="brand-copy">
         <strong>Search Campus</strong>
+        <small>Find buildings, tutors, rooms, and services</small>
+      </div>
     </div>
-</header>
+  </header>
 
-<div class="container">
+  <main class="container">
+    <section class="panel">
+      <h2>Campus search</h2>
+      <p class="muted">Start typing to filter the results list.</p>
+      <div class="search-box">
+        <input type="text" id="searchInput" placeholder="Search buildings, tutors, rooms...">
+      </div>
+      <div class="card" id="resultsBox" style="display:none;">
+        <h3>Search Results</h3>
+        <ul id="list" class="list-clean">
+          <li><a href="https://www.google.com/maps?q=Harrison+Learning+Centre+Wolverhampton" target="_blank" rel="noopener">Main Library – Harrison Learning Centre</a></li>
+          <li><a href="https://www.google.com/maps?q=MI+Building+University+of+Wolverhampton" target="_blank" rel="noopener">MI Building – Science Labs</a></li>
+          <li><a href="https://www.google.com/maps?q=MN+Building+University+of+Wolverhampton" target="_blank" rel="noopener">MN Building – Business School</a></li>
+          <li><a href="https://www.google.com/maps?q=University+of+Wolverhampton+Student+Union" target="_blank" rel="noopener">Student Union Café</a></li>
+          <li><a href="https://www.google.com/maps?q=Harrison+Learning+Centre+Prayer+Room+Wolverhampton" target="_blank" rel="noopener">Prayer Room</a></li>
+          <li><a href="https://www.google.com/maps?q=MI+Building+University+of+Wolverhampton" target="_blank" rel="noopener">Dr Smith – MI Building</a></li>
+          <li><a href="https://www.google.com/maps?q=MN+Building+University+of+Wolverhampton" target="_blank" rel="noopener">Prof Johnson – MN Building</a></li>
+          <li><a href="https://www.google.com/maps?q=Harrison+Learning+Centre+Wolverhampton" target="_blank" rel="noopener">Dr Ahmed – Harrison Centre</a></li>
+          <li><a href="https://www.google.com/maps?q=University+of+Wolverhampton+toilets" target="_blank" rel="noopener">Toilets – MI Building</a></li>
+          <li><a href="https://www.google.com/maps?q=University+of+Wolverhampton+computer+lab" target="_blank" rel="noopener">Computer Lab</a></li>
+        </ul>
+        <p id="noResults" style="display:none;">No results found</p>
+      </div>
+    </section>
+  </main>
 
-    <div class="search-box">
-        <input type="text" id="searchInput" placeholder="Search buildings, tutors, rooms..." onkeyup="filterList()">
-    </div>
-
-    
-   <div class="card" id="resultsBox" style="display:none;">
-    <h3>Search Results</h3>
-    <ul id="list" style="list-style:none; padding:0;">
-
-<li><a href="https://www.google.com/maps?q=Harrison+Learning+Centre+Wolverhampton" target="_blank">Main Library – Harrison Learning Centre</a></li>
-
-<li><a href="https://www.google.com/maps?q=MI+Building+University+of+Wolverhampton" target="_blank">MI Building – Science Labs</a></li>
-
-<li><a href="https://www.google.com/maps?q=MN+Building+University+of+Wolverhampton" target="_blank">MN Building – Business School</a></li>
-
-<li><a href="https://www.google.com/maps?q=University+of+Wolverhampton+Student+Union" target="_blank">Student Union Café</a></li>
-
-<li><a href="https://www.google.com/maps?q=Harrison+Learning+Centre+Prayer+Room+Wolverhampton" target="_blank">Prayer Room</a></li>
-
-<li><a href="https://www.google.com/maps?q=MI+Building+University+of+Wolverhampton" target="_blank">Dr Smith – MI Building</a></li>
-
-<li><a href="https://www.google.com/maps?q=MN+Building+University+of+Wolverhampton" target="_blank">Prof Johnson – MN Building</a></li>
-
-<li><a href="https://www.google.com/maps?q=Harrison+Learning+Centre+Wolverhampton" target="_blank">Dr Ahmed – Harrison Centre</a></li>
-
-<li><a href="https://www.google.com/maps?q=University+of+Wolverhampton+toilets" target="_blank">Toilets – MI Building</a></li>
-
-<li><a href="https://www.google.com/maps?q=University+of+Wolverhampton+computer+lab" target="_blank">Computer Lab</a></li>
-
-</ul>
-
-    <p id="noResults" style="display:none; color:gray;">No results found</p>
-
-</div>
-
-</div>
-
-
-
-<footer>
+  <footer>
     <a href="index.html">Home</a>
-</footer>
+    <a href="map.html">Map</a>
+    <a href="search.html" class="active">Search</a>
+    <a href="transit.html">Transit</a>
+    <a href="issues.html">Issues</a>
+  </footer>
 
-<script>
-function filterList() {
-    let input = document.getElementById("searchInput").value.toLowerCase();
-    let items = document.querySelectorAll("#list li");
-    let resultsBox = document.getElementById("resultsBox");
+  <script>
+    const searchInput = document.getElementById('searchInput');
+    const items = document.querySelectorAll('#list li');
+    const resultsBox = document.getElementById('resultsBox');
+    const noResults = document.getElementById('noResults');
 
-    // If search is empty → hide results
-    if(input.trim() === ""){
-        resultsBox.style.display = "none";
+    function filterList() {
+      const input = searchInput.value.toLowerCase().trim();
+      if (!input) {
+        resultsBox.style.display = 'none';
+        noResults.style.display = 'none';
+        items.forEach(item => item.style.display = '');
         return;
+      }
+
+      resultsBox.style.display = 'block';
+      let visibleCount = 0;
+
+      items.forEach(item => {
+        const match = item.textContent.toLowerCase().includes(input);
+        item.style.display = match ? '' : 'none';
+        if (match) visibleCount++;
+      });
+
+      noResults.style.display = visibleCount === 0 ? 'block' : 'none';
     }
 
-    // Show results box
-    resultsBox.style.display = "block";
-
-    // Filter items
-    items.forEach(item => {
-        item.style.display = item.textContent.toLowerCase().includes(input)
-        ? "" : "none";
-    });
-}
-
-let visibleCount = 0;
-
-items.forEach(item => {
-    if(item.textContent.toLowerCase().includes(input)){
-        item.style.display = "";
-        visibleCount++;
-    } else {
-        item.style.display = "none";
-    }
-});
-
-document.getElementById("noResults").style.display = visibleCount === 0 ? "block" : "none";
-
-</script>
-
+    searchInput.addEventListener('input', filterList);
+  </script>
 </body>
 </html>
